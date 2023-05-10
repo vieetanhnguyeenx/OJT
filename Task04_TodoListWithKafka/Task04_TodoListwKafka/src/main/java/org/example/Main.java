@@ -1,0 +1,63 @@
+package org.example;
+
+import helper.HTTPServerHelper;
+import helper.KafkaHelper;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(8888);
+            List<String> header = null;
+
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+            BufferedReader bufferedReader = null;
+            PrintWriter writer = null;
+
+            while (true) {
+                // Connect and print log
+                Socket socket = serverSocket.accept();
+                System.out.println("[Server_log]: Connected");
+
+                // Get Reader
+                inputStream = socket.getInputStream();
+                outputStream = socket.getOutputStream();
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                writer = new PrintWriter(outputStream, true);
+                header = new ArrayList<>();
+
+                // Get Header request
+                String hederLine = null;
+                while ((hederLine = bufferedReader.readLine()).length() != 0) {
+                    System.out.println(hederLine);
+                    header.add(hederLine);
+                }
+
+                // Get payload for doPost()
+                StringBuilder payload = new StringBuilder();
+                while (bufferedReader.ready()) {
+                    payload.append((char) bufferedReader.read());
+                }
+
+                // Get method, url, param string
+                String method = HTTPServerHelper.getMethod(header.get(0));
+                String url = HTTPServerHelper.getUrl(header.get(0));
+                if (url.equalsIgnoreCase("/login")|| url.equalsIgnoreCase("/")) {
+                    if (method.equalsIgnoreCase("get")) {
+                        KafkaHelper.produceLoginMessage(url, method, header.get(0), null);
+                    } else {
+                        KafkaHelper.produceLoginMessage(url, method, header.get(0), payload.toString());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}

@@ -1,16 +1,8 @@
 package helper;
 
-import Model.Todo;
-import Model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
 
 public class JsonHelper {
     private static ObjectMapper objectMapper = getDefaultObjectMapper();
@@ -140,10 +132,15 @@ public class JsonHelper {
 //        } catch (JsonProcessingException e) {
 //            throw new RuntimeException(e);
 //        }
-        String j = "{\"id\":7,\"title\":\"Cafe\",\"status\":true,\"createdDate\":\"2023-04-25\"}";
+        String j = "{\n" +
+                "  \"url\": \"cuoc doi\",\n" +
+                "  \"method\": \"get\",\n" +
+                "  \"requestHeader\": \"abcxyz\",\n" +
+                "  \"payload\": null\n" +
+                "}";
         try {
             JsonNode jn =  JsonHelper.parse(j);
-            System.out.println(jn.findValue("title").asText());
+            System.out.println(jn.hasNonNull("method"));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
