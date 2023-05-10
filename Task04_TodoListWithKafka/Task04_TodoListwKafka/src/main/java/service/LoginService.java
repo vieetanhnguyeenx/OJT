@@ -6,7 +6,9 @@ import helper.JsonHelper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
@@ -37,21 +39,11 @@ public class LoginService {
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             records.forEach(record -> {
-                try {
-                    String method = JsonHelper.parse(record.toString()).findValue("method").asText();
-                    switch (method.toLowerCase()) {
-                        case "get":
-                            doGet(producerProperties, "login-response-serv", record.value());
-                            break;
-                        case "post":
-                            break;
-                        default:
-                            System.out.println("Error method");
+                    String method = "get";
+                    if(method.equalsIgnoreCase("get")) {
+                        doGet(producerProperties, "login-response-serv", record.value());
                     }
-
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
+                System.out.println(record.value());
             });
         }
     }
@@ -65,6 +57,20 @@ public class LoginService {
             String method = JsonHelper.parse(record.toString()).findValue("method").asText();
             String url = JsonHelper.parse(record.toString()).findValue("url").asText();
 
+            String json = "{\n" +
+                    "  \"url\":  " + url + " ,\n" +
+                    "  \"method\": " + method + ",\n" +
+                    "  \"htppResponese\": " + respone + ",\n" +
+                    "  \"token\": " + null + "\n" +
+                    "}";
+            try (var producer = new KafkaProducer<String, String>(properties)) {
+                final var message = new ProducerRecord<>(
+                        "login-response-serv",     //topic name
+                        "",            // key
+                        json        // value
+                );
+                producer.send(message);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

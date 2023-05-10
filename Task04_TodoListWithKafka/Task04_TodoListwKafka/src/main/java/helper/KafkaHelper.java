@@ -1,12 +1,18 @@
 package helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class KafkaHelper {
@@ -33,6 +39,18 @@ public class KafkaHelper {
     }
 
     public static void consumeLoginMessage(PrintWriter writer, OutputStream outputStream) {
-
+        Properties consumerProperties = new Properties();
+        consumerProperties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "login-service");
+        consumerProperties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        consumerProperties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
+        consumer.subscribe(Arrays.asList("login-response-serv"));
+        while (true) {
+            ConsumerRecords<String, String> records = consumer.poll(100);
+            records.forEach(record -> {
+                System.out.println(record.value());
+            });
+        }
     }
 }

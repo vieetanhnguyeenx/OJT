@@ -51,10 +51,18 @@ public class Main {
                 if (url.equalsIgnoreCase("/login")|| url.equalsIgnoreCase("/")) {
                     if (method.equalsIgnoreCase("get")) {
                         KafkaHelper.produceLoginMessage(url, method, header.get(0), null);
+                        KafkaHelper.consumeLoginMessage(writer, outputStream);
                     } else {
                         KafkaHelper.produceLoginMessage(url, method, header.get(0), payload.toString());
                     }
                 }
+
+                inputStream.close();
+                outputStream.close();
+                bufferedReader.close();
+                writer.close();
+                socket.close();
+                System.out.println("[Server_log]: Closed");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

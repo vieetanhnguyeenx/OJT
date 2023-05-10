@@ -140,7 +140,7 @@ public class JsonHelper {
                 "}";
         try {
             JsonNode jn =  JsonHelper.parse(j);
-            System.out.println(jn.hasNonNull("method"));
+            System.out.println(JsonHelper.parse(jn.toString()).findValue("method").asText());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
