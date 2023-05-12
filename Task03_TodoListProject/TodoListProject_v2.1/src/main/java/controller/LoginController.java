@@ -28,7 +28,7 @@ public class LoginController implements HttpBaseController{
             String token = getToken(HTTPServerHelper.getParameter(payload, "username"),
                     HTTPServerHelper.getParameter(payload, "password"));
             if(token != null) {
-                HTTPServerHelper.sendRedirect("http://localhost:8888/todolist?token=" + token, outputStream);
+                HTTPServerHelper.sendRe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               direct("http://localhost:8888/todolist?token=" + token, outputStream);
             } else {
                 HTTPServerHelper.sendRedirect("http://localhost:8888/login", outputStream);
             }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import helper.HTTPServerHelper;
 import helper.JsonHelper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -14,6 +15,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -31,21 +33,23 @@ public class LoginService {
 
         Properties producerProperties = new Properties();
         producerProperties.setProperty(ProducerConfig.CLIENT_ID_CONFIG, "java-producer");
-        producerProperties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093");
+        producerProperties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         producerProperties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerProperties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
-
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
-            records.forEach(record -> {
-                    String method = "get";
-                    if(method.equalsIgnoreCase("get")) {
-                        doGet(producerProperties, "login-response-serv", record.value());
-                    }
-                System.out.println(record.value());
-            });
+            for (ConsumerRecord<String, String> record : records) {
+                String message = record.value();
+                System.out.println(message +LocalDateTime.now());
+                try {
+                    System.out.println(JsonHelper.parse(message.toString()).findValue("url").asText());
+                } catch (JsonProcessingException e) {
+                    System.out.println("Error ");
+                }
+            }
         }
+
     }
     private static void doGet(Properties properties, String topic, String record) {
         try {
@@ -56,7 +60,9 @@ public class LoginService {
                     htmlRespone.getBytes(StandardCharsets.UTF_8) + CRLF + CRLF;
             String method = JsonHelper.parse(record.toString()).findValue("method").asText();
             String url = JsonHelper.parse(record.toString()).findValue("url").asText();
-
+            System.out.println(htmlRespone);
+            System.out.println(respone);
+            System.out.println(method);
             String json = "{\n" +
                     "  \"url\":  " + url + " ,\n" +
                     "  \"method\": " + method + ",\n" +

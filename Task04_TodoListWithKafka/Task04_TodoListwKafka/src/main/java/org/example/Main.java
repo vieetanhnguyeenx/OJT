@@ -6,6 +6,8 @@ import helper.KafkaHelper;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class Main {
             while (true) {
                 // Connect and print log
                 Socket socket = serverSocket.accept();
-                System.out.println("[Server_log]: Connected");
+                System.out.println("[Server_log]: Connected" + LocalDateTime.now());
 
                 // Get Reader
                 inputStream = socket.getInputStream();
@@ -50,8 +52,7 @@ public class Main {
                 String url = HTTPServerHelper.getUrl(header.get(0));
                 if (url.equalsIgnoreCase("/login")|| url.equalsIgnoreCase("/")) {
                     if (method.equalsIgnoreCase("get")) {
-                        KafkaHelper.produceLoginMessage(url, method, header.get(0), null);
-                        KafkaHelper.consumeLoginMessage(writer, outputStream);
+                        KafkaHelper.produceLoginMessage(url, method, header.get(0), payload.toString());
                     } else {
                         KafkaHelper.produceLoginMessage(url, method, header.get(0), payload.toString());
                     }
@@ -62,10 +63,11 @@ public class Main {
                 bufferedReader.close();
                 writer.close();
                 socket.close();
-                System.out.println("[Server_log]: Closed");
+                System.out.println("[Server_log]: Closed" + LocalDateTime.now());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
