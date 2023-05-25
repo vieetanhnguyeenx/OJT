@@ -46,7 +46,6 @@ public class LoadDataProducer extends Thread {
         HTTPServerHelper.getParameter("123", "title");
         JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
         Jedis jedis = jedisPool.getResource();
-        jedis.hgetAll("user" + 1);
         while (true) {
             if (LoadDataData.loadDataData.size() > 0) {
                 for (Map.Entry<Integer, Request> data : LoadDataData.loadDataData.entrySet()) {
@@ -101,11 +100,8 @@ public class LoadDataProducer extends Thread {
                             } else {
                                 Long t16 = System.currentTimeMillis();
                                 Map<String, String> cacheList = jedis.hgetAll("user" + u1.getId());
-                                System.out.println(cacheList);
                                 for (Map.Entry<String, String> entry: cacheList.entrySet()) {
                                     try {
-                                        System.out.println(entry.getKey());
-                                        System.out.println("cache");
                                         todoList.add(JsonHelper.fromJson(JsonHelper.parse(entry.getValue()), Todo.class));
                                     } catch (JsonProcessingException e) {
                                         e.printStackTrace();

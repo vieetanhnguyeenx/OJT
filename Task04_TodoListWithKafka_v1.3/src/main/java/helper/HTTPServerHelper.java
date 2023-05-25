@@ -90,6 +90,7 @@ public class HTTPServerHelper {
         try {
             writer.println("HTTP/1.1 200 OK");
             writer.println("Content-Type: text;charset=utf-8");
+            writer.println("Cache-Control: no-cache,no-store");
             writer.println("Content-Length: " + respString.getBytes(StandardCharsets.UTF_8).length);
             writer.println();
             outputStream.write(respString.getBytes(StandardCharsets.UTF_8));
@@ -115,6 +116,7 @@ public class HTTPServerHelper {
     public static void forwardJson(PrintWriter writer, OutputStream outputStream, String jsonString) throws IOException {
         writer.println("HTTP/1.1 200 OK");
         writer.println("Content-Type: application/json; charset=utf-8");
+        writer.println("Cache-Control: no-cache,no-store");
         writer.println("Content-Length: " + jsonString.getBytes(StandardCharsets.UTF_8).length);
         writer.println();
         outputStream.write(jsonString.getBytes(StandardCharsets.UTF_8));
