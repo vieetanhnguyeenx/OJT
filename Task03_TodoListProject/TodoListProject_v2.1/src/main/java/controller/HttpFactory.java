@@ -20,7 +20,7 @@ public class HttpFactory {
         if (url.equalsIgnoreCase("/deleteTask")) {
             return new DeleteTaskController();
         }
-        if (url.equalsIgnoreCase("/addNewTask")) {
+        if (url.equalsIgnoreCase("/ex")) {
             return new AddNewTaskController();
         }
         if (url.equalsIgnoreCase("/404NotFound")) {

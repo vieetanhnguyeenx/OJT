@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Base64;
 
-public class LoginController implements HttpBaseController{
+public class LoginController implements HttpBaseController {
     @Override
     public void doGet(PrintWriter writer, OutputStream outputStream, String header) {
         try {
@@ -27,10 +27,10 @@ public class LoginController implements HttpBaseController{
         try {
             String token = getToken(HTTPServerHelper.getParameter(payload, "username"),
                     HTTPServerHelper.getParameter(payload, "password"));
-            if(token != null) {
-                HTTPServerHelper.sendRe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               direct("http://localhost:8888/todolist?token=" + token, outputStream);
+            if (token != null) {
+                HTTPServerHelper.sendRedirect("http://localhost:8888/todolist?token=" + token, outputStream);
             } else {
-                HTTPServerHelper.sendRedirect("http://localhost:8888/login", outputStream);
+                HTTPServerHelper.sendRedirect(",.", outputStream);
             }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -38,14 +38,14 @@ public class LoginController implements HttpBaseController{
     }
 
     private String getToken(String username, String password) throws JsonProcessingException {
-       User user = UserDAO.getUser(username, password);
-       if(user != null) {
-           JsonNode jsonNode = JsonHelper.toJson(user);
-           String jString = JsonHelper.stringgify(jsonNode);
-           Base64.Encoder encoder = Base64.getEncoder();
-           String token = encoder.encodeToString(jString.getBytes());
-           return token;
-       }
-       return null;
+        User user = UserDAO.getUser(username, password);
+        if (user != null) {
+            JsonNode jsonNode = JsonHelper.toJson(user);
+            String jString = JsonHelper.stringgify(jsonNode);
+            Base64.Encoder encoder = Base64.getEncoder();
+            String token = encoder.encodeToString(jString.getBytes());
+            return token;
+        }
+        return null;
     }
 }
