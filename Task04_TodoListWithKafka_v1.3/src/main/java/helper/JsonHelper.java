@@ -4,7 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
+import model.RequestKafka;
 import model.Response;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JsonHelper {
     private static ObjectMapper objectMapper = getDefaultObjectMapper();
@@ -43,8 +47,13 @@ public class JsonHelper {
 
     public static void main(String[] args) {
         Gson gson = new Gson();
-        String json = "{\"url\":\"/login\",\"method\":\"post\",\"statusCode\":\"302 Found\",\"newUrl\":\"http://localhost:8888/todolist?token=eyJpZCI6MSwibmFtZSI6ImFuaG52IiwicGFzc3dvcmQiOm51bGx9\",\"htmlResponse\":null,\"jsonData\":null,\"token\":null,\"socketId\":4}";
-        Response response = gson.fromJson(json, Response.class);
-        System.out.println(response);
+        Map<String, String> requestHeader = new HashMap<>();
+        requestHeader.put("doi0", "qua den");
+        requestHeader.put("doi1", "qua den");
+        requestHeader.put("doi2", "qua den");
+        requestHeader.put("doi3", "qua den");
+        RequestKafka requestKafka = new RequestKafka("anh", requestHeader);
+
+        System.out.println(gson.toJson(requestKafka));
     }
 }
