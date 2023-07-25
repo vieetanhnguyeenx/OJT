@@ -1,4 +1,5 @@
 package com.nva.Task05_TodoListWithSpring.controller;
+
 import com.nva.Task05_TodoListWithSpring.dto.UserLoginDTO;
 import com.nva.Task05_TodoListWithSpring.model.Request;
 import com.nva.Task05_TodoListWithSpring.model.*;
@@ -28,7 +29,7 @@ public class LoginController {
     LoginService loginService;
 
     @GetMapping("/")
-    private ModelAndView  getLogin(HttpServletResponse response) {
+    private ModelAndView getLogin(HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login.html");
         return modelAndView;

@@ -7,12 +7,13 @@ import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class Application {
-	@Value("${mysql.url}")
-	private static String url;
-	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(Application.class, args);
-		DatabaseConnector databaseConnector = (DatabaseConnector) context.getBean("mysqlConnector");
-		databaseConnector.connect();
-	}
+    @Value("${mysql.url}")
+    private static String url;
+
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(Application.class, args);
+        DatabaseConnector databaseConnector = (DatabaseConnector) context.getBean("mysqlConnector");
+        databaseConnector.connect();
+    }
 
 }

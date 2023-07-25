@@ -17,7 +17,7 @@ public class Server {
         DataOutputStream dout = new DataOutputStream(s.getOutputStream());
         String name = din.readUTF();
         Scanner sc = new Scanner(s.getInputStream());
-        System.out.println( name + " has joined");
+        System.out.println(name + " has joined");
         String myStr = "";
         String str = "";
         while (!myStr.trim().equals("/stop")) {

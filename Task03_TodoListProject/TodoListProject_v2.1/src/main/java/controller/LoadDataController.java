@@ -15,7 +15,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class LoadDataController implements HttpBaseController, BaseAuthentication{
+public class LoadDataController implements HttpBaseController, BaseAuthentication {
     @Override
     public void doGet(PrintWriter writer, OutputStream outputStream, String header) {
         String paramString = HTTPServerHelper.getParameterString(header);

@@ -12,6 +12,7 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<Todo, Integer> {
     @Query(value = "SELECT * FROM task03_httpserver.task where UserID = ?1", nativeQuery = true)
     List<Todo> findByUserId(int userId);
+
     @Query(value = "SELECT * FROM task03_httpserver.task where ID = ?1 and UserID = ?2", nativeQuery = true)
     Todo findByIdAndUserID(int id, int userId);
 }

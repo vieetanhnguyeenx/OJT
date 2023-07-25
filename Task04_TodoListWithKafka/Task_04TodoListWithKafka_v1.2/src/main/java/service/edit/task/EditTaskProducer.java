@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class EditTaskProducer extends Thread{
+public class EditTaskProducer extends Thread {
     @Override
     public void run() {
         Properties producerProperties = new Properties();

@@ -22,50 +22,50 @@ import java.util.Map;
 @SpringBootApplication
 public class Task05TodoListWithSpringLoadDataApplication {
 
-	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(Task05TodoListWithSpringLoadDataApplication.class, args);
-		JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
-		Jedis jedis = jedisPool.getResource();
-		LoadDataService loadDataService = context.getBean(LoadDataService.class);
-		TodoRepository todoRepository = context.getBean(TodoRepository.class);
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(Task05TodoListWithSpringLoadDataApplication.class, args);
+        JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
+        Jedis jedis = jedisPool.getResource();
+        LoadDataService loadDataService = context.getBean(LoadDataService.class);
+        TodoRepository todoRepository = context.getBean(TodoRepository.class);
 
-		Map<String, String> dataMap;
-		while (true) {
-			if (jedis.hlen("loadDataConsumer") > 0) {
-				dataMap = jedis.hgetAll("loadDataConsumer");
-				for(Map.Entry<String, String> data: dataMap.entrySet()) {
-					String key = data.getKey();
-					Request request = TokenHelper.gson.fromJson(data.getValue(), Request.class);
-					User user = loadDataService.authentication(request.getToken());
-					String jsonData;
-					if (user != null) {
-						if (jedis.hexists("loadDataCache", "user" + user.getId())) {
-							jsonData = jedis.hget("loadDataCache", "user" + user.getId());
-						} else {
-							List<Todo> todoList = todoRepository.findByUserId(user.getId());
-							jsonData = TokenHelper.gson.toJson(todoList);
-							jedis.hset("loadDataCache", "user" + user.getId(), jsonData);
-						}
+        Map<String, String> dataMap;
+        while (true) {
+            if (jedis.hlen("loadDataConsumer") > 0) {
+                dataMap = jedis.hgetAll("loadDataConsumer");
+                for (Map.Entry<String, String> data : dataMap.entrySet()) {
+                    String key = data.getKey();
+                    Request request = TokenHelper.gson.fromJson(data.getValue(), Request.class);
+                    User user = loadDataService.authentication(request.getToken());
+                    String jsonData;
+                    if (user != null) {
+                        if (jedis.hexists("loadDataCache", "user" + user.getId())) {
+                            jsonData = jedis.hget("loadDataCache", "user" + user.getId());
+                        } else {
+                            List<Todo> todoList = todoRepository.findByUserId(user.getId());
+                            jsonData = TokenHelper.gson.toJson(todoList);
+                            jedis.hset("loadDataCache", "user" + user.getId(), jsonData);
+                        }
 
-						Response response = new Response(key, request.getUrl(), HttpStatus.OK,
-								null, null, jsonData, null);
+                        Response response = new Response(key, request.getUrl(), HttpStatus.OK,
+                                null, null, jsonData, null);
 
-						String jsonResponse = TokenHelper.gson.toJson(response);
-						loadDataService.sendMessageToTopic(jsonResponse, "login-response-serv");
-					} else {
-						Response response = new Response(key, request.getUrl(), HttpStatus.FORBIDDEN,
-								null,
-								null, null, null);
+                        String jsonResponse = TokenHelper.gson.toJson(response);
+                        loadDataService.sendMessageToTopic(jsonResponse, "login-response-serv");
+                    } else {
+                        Response response = new Response(key, request.getUrl(), HttpStatus.FORBIDDEN,
+                                null,
+                                null, null, null);
 
-						String jsonResponse = TokenHelper.gson.toJson(response);
-						loadDataService.sendMessageToTopic(jsonResponse, "login-response-serv");
-					}
+                        String jsonResponse = TokenHelper.gson.toJson(response);
+                        loadDataService.sendMessageToTopic(jsonResponse, "login-response-serv");
+                    }
 
-					jedis.hdel("loadDataConsumer", key);
-					dataMap.remove(key);
-				}
-			}
-		}
-	}
+                    jedis.hdel("loadDataConsumer", key);
+                    dataMap.remove(key);
+                }
+            }
+        }
+    }
 
 }

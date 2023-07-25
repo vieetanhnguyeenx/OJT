@@ -7,7 +7,7 @@ import core.ServerListenerThread;
 
 public class Main {
     public static void main(String[] args) {
-        try{
+        try {
             KafkaListenerThread kafkaListenerThread = new KafkaListenerThread();
             kafkaListenerThread.start();
 
@@ -17,9 +17,9 @@ public class Main {
             KafkaListenerThread02 kafkaListenerThread02 = new KafkaListenerThread02();
             kafkaListenerThread02.start();
 
-            ServerListenerThread serverListenerThread = new ServerListenerThread(8888,"localhost");
+            ServerListenerThread serverListenerThread = new ServerListenerThread(8888, "localhost");
             serverListenerThread.start();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

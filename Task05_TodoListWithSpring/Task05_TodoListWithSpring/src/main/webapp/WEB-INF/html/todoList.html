@@ -26,7 +26,8 @@
             <h1>To Do List</h1>
         </div>
         <div class="col-md-6 d-flex justify-content-end">
-            <button class="btn btn-danger "><a style="text-decoration: none; color: white;" onclick="logout()">Logout</a></button>
+            <button class="btn btn-danger "><a style="text-decoration: none; color: white;"
+                                               onclick="logout()">Logout</a></button>
         </div>
     </div>
 
@@ -40,9 +41,9 @@
     </div>
 
 
-
     <!-- Update Modal -->
-    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -51,8 +52,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" >Title</span>
-                        <input type="text" class="form-control" placeholder="Tile" id="updateTitle" aria-label="Username" aria-describedby="addon-wrapping">
+                        <span class="input-group-text">Title</span>
+                        <input type="text" class="form-control" placeholder="Tile" id="updateTitle"
+                               aria-label="Username" aria-describedby="addon-wrapping">
                         <input type="text" class="form-control" id="updateId" hidden="hidden">
                     </div>
                 </div>
@@ -65,7 +67,8 @@
     </div>
 
     <!-- Add Modal -->
-    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -75,7 +78,8 @@
                 <div class="modal-body">
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping">Title</span>
-                        <input type="text" class="form-control" placeholder="Tile" id="addTitle" aria-label="Username" aria-describedby="addon-wrapping">
+                        <input type="text" class="form-control" placeholder="Tile" id="addTitle" aria-label="Username"
+                               aria-describedby="addon-wrapping">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -99,143 +103,148 @@
 </script>
 <script>
 
-        var paramString = window.location.search;
-        var urlParam = new URLSearchParams(paramString);
-        var token = urlParam.get('token');
-        var jsonData = [];
+    var paramString = window.location.search;
+    var urlParam = new URLSearchParams(paramString);
+    var token = urlParam.get('token');
+    var jsonData = [];
 
-        function loadDataToHtml(data) {
-            var content = document.getElementById("todolist");
-            for (var i = 0; i < data.length; i++) {
+    function loadDataToHtml(data) {
+        var content = document.getElementById("todolist");
+        for (var i = 0; i < data.length; i++) {
 
-                var element = '<li class="1 list-group-item list-group-item-action list-group-item-danger">\n' +
+            var element = '<li class="1 list-group-item list-group-item-action list-group-item-danger">\n' +
+                '                    <div class="row">\n' +
+                '                        <div class="col-md-1">\n' +
+                '                            <input onclick="changeStatus(' + data[i].id + ')" class="1 form-check-input me-1" type="checkbox" value="">\n' +
+                '                        </div>\n' +
+                '                        <div class="1 col-md-8">\n' +
+                '                            <p class="mb-0">' + data[i].title + '</p>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-md-1">\n' +
+                '                            <button class=" btn btn-outline-primary py-0" onclick="update(' + data[i].id + ')" id="edit">Edit</button>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-md-2">\n' +
+                '                            <button class=" btn btn-outline-danger py-0" onclick="deleteItem(' + data[i].id + ')">Delete</button>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </li>';
+            if (data[i].status) {
+                element = '<li class="1 list-group-item list-group-item-action list-group-item-success">\n' +
                     '                    <div class="row">\n' +
                     '                        <div class="col-md-1">\n' +
-                    '                            <input onclick="changeStatus('+ data[i].id +')" class="1 form-check-input me-1" type="checkbox" value="">\n' +
+                    '                            <input onclick="changeStatus(' + data[i].id + ')" checked class="1 form-check-input me-1" type="checkbox" value="">\n' +
                     '                        </div>\n' +
                     '                        <div class="1 col-md-8">\n' +
-                    '                            <p class="mb-0">'+ data[i].title +'</p>\n' +
+                    '                            <p class="mb-0">' + data[i].title + '</p>\n' +
                     '                        </div>\n' +
                     '                        <div class="col-md-1">\n' +
-                    '                            <button class=" btn btn-outline-primary py-0" onclick="update('+ data[i].id +')" id="edit">Edit</button>\n' +
+                    '                            <button class=" btn btn-outline-primary py-0" onclick="update(' + data[i].id + ')" id="edit">Edit</button>\n' +
                     '                        </div>\n' +
                     '                        <div class="col-md-2">\n' +
-                    '                            <button class=" btn btn-outline-danger py-0" onclick="deleteItem('+ data[i].id +')">Delete</button>\n' +
+                    '                            <button class=" btn btn-outline-danger py-0" onclick="deleteItem(' + data[i].id + ')">Delete</button>\n' +
                     '                        </div>\n' +
                     '                    </div>\n' +
                     '                </li>';
-                if (data[i].status) {
-                    element = '<li class="1 list-group-item list-group-item-action list-group-item-success">\n' +
-                        '                    <div class="row">\n' +
-                        '                        <div class="col-md-1">\n' +
-                        '                            <input onclick="changeStatus('+ data[i].id +')" checked class="1 form-check-input me-1" type="checkbox" value="">\n' +
-                        '                        </div>\n' +
-                        '                        <div class="1 col-md-8">\n' +
-                        '                            <p class="mb-0">'+ data[i].title +'</p>\n' +
-                        '                        </div>\n' +
-                        '                        <div class="col-md-1">\n' +
-                        '                            <button class=" btn btn-outline-primary py-0" onclick="update('+ data[i].id +')" id="edit">Edit</button>\n' +
-                        '                        </div>\n' +
-                        '                        <div class="col-md-2">\n' +
-                        '                            <button class=" btn btn-outline-danger py-0" onclick="deleteItem('+ data[i].id +')">Delete</button>\n' +
-                        '                        </div>\n' +
-                        '                    </div>\n' +
-                        '                </li>';
-                }
-                content.innerHTML += element;
             }
+            content.innerHTML += element;
         }
+    }
 
-        function loadData() {
-            $.ajax({
-                url: "http://localhost:8888/loaddata",
-                type: "POST",
-                dataType: "text",
-                data: "token=" + token,
-                success: function (respone) {
-                    jsonData = JSON.parse(respone);
-                    console.log("[LoadData]: Success");
-                    console.log(respone);
-                    loadDataToHtml(jsonData);
-                }
-            });
-        }
+    function loadData() {
+        $.ajax({
+            url: "http://localhost:8888/loaddata",
+            type: "POST",
+            dataType: "text",
+            data: "token=" + token,
+            success: function (respone) {
+                jsonData = JSON.parse(respone);
+                console.log("[LoadData]: Success");
+                console.log(respone);
+                loadDataToHtml(jsonData);
+            }
+        });
+    }
+
+    loadData();
+
+    function add() {
+        $("#addModal").modal("show");
+    }
+
+    function executeAdd() {
+        var title = document.getElementById("addTitle").value;
+        document.getElementById("addTitle").value = "";
+        $("#addModal").modal("hide");
+        $.ajax({
+            url: "http://localhost:8888/addNewTask",
+            type: "POST",
+            dataType: "text",
+            data: "token=" + token + "&title=" + title,
+            success: function (respone) {
+                console.log("[ExecuteUpdate]: " + respone);
+                reloadData();
+            }
+        });
+    }
+
+    function update(id) {
+        $("#updateModal").modal("show");
+        document.getElementById("updateId").value = id;
+    }
+
+    function executeUpdate() {
+        var id = document.getElementById("updateId").value;
+        var title = document.getElementById("updateTitle").value;
+        document.getElementById("updateTitle").value = "";
+        $("#updateModal").modal("hide");
+        $.ajax({
+            url: "http://localhost:8888/editTask",
+            type: "POST",
+            dataType: "text",
+            data: "token=" + token + "&id=" + id + "&title=" + title,
+            success: function (respone) {
+                console.log("[ExecuteUpdate]: " + respone);
+                reloadData();
+            }
+        });
+    }
+
+    function reloadData() {
+        var content = document.getElementById("todolist");
+        content.innerHTML = "";
         loadData();
+    }
 
-        function add() {
-            $("#addModal").modal("show");
-        }
-        function executeAdd() {
-            var title = document.getElementById("addTitle").value;
-            document.getElementById("addTitle").value ="";
-            $("#addModal").modal("hide");
-            $.ajax({
-                url: "http://localhost:8888/addNewTask",
-                type: "POST",
-                dataType: "text",
-                data: "token=" + token + "&title=" + title,
-                success: function (respone) {
-                    console.log("[ExecuteUpdate]: " + respone);
-                    reloadData();
-                }
-            });
-        }
-        function update(id) {
-            $("#updateModal").modal("show");
-            document.getElementById("updateId").value = id;
-        }
+    function changeStatus(id) {
+        $.ajax({
+            url: "http://localhost:8888/changeStatus",
+            type: "POST",
+            dataType: "text",
+            data: "token=" + token + "&id=" + id,
+            success: function (respone) {
+                console.log("[ChangeStatus]: " + respone);
+                reloadData();
+            }
+        });
+    }
 
-        function executeUpdate() {
-            var id = document.getElementById("updateId").value;
-            var title = document.getElementById("updateTitle").value;
-            document.getElementById("updateTitle").value ="";
-            $("#updateModal").modal("hide");
-            $.ajax({
-                url: "http://localhost:8888/editTask",
-                type: "POST",
-                dataType: "text",
-                data: "token=" + token + "&id=" + id + "&title=" + title,
-                success: function (respone) {
-                    console.log("[ExecuteUpdate]: " + respone);
-                    reloadData();
-                }
-            });
-        }
+    function deleteItem(id) {
+        $.ajax({
+            url: "http://localhost:8888/deleteTask",
+            type: "POST",
+            dataType: "text",
+            data: "token=" + token + "&id=" + id,
+            success: function (respone) {
+                console.log("[ChangeStatus]: " + respone);
+                reloadData();
+            }
+        });
+    }
 
-        function reloadData() {
-            var content = document.getElementById("todolist");
-            content.innerHTML = "";
-            loadData();
-        }
-        function changeStatus(id) {
-            $.ajax({
-                url: "http://localhost:8888/changeStatus",
-                type: "POST",
-                dataType: "text",
-                data: "token=" + token + "&id=" + id,
-                success: function (respone) {
-                    console.log("[ChangeStatus]: " + respone);
-                    reloadData();
-                }
-            });
-        }
-        function deleteItem(id) {
-            $.ajax({
-                url: "http://localhost:8888/deleteTask",
-                type: "POST",
-                dataType: "text",
-                data: "token=" + token + "&id=" + id,
-                success: function (respone) {
-                    console.log("[ChangeStatus]: " + respone);
-                    reloadData();
-                }
-            });
-        }
-
-        function logout() {
-            token = "";
-            window.location.href = 'http://localhost:8888';
-        }
+    function logout() {
+        token = "";
+        window.location.href = 'http://localhost:8888';
+    }
 
 </script>
 </body>

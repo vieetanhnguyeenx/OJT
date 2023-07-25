@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringBootInTwoHourApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootInTwoHourApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootInTwoHourApplication.class, args);
+    }
 
 }

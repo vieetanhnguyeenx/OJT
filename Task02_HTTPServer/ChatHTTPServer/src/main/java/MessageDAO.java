@@ -4,7 +4,7 @@ import java.io.ObjectInputStream;
 import java.util.List;
 
 public class MessageDAO {
-    public static List<Message> getMessageList () {
+    public static List<Message> getMessageList() {
         List<Message> messageList = null;
         try {
             FileInputStream fis = new FileInputStream("data.txt");

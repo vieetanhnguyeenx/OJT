@@ -1,4 +1,5 @@
 package org.example;
+
 import com.google.gson.Gson;
 import helper.HTTPServerHelper;
 import helper.JsonHelper;
@@ -63,7 +64,7 @@ public class Main {
                 String method = HTTPServerHelper.getMethod(header.get(0));
                 String url = HTTPServerHelper.getUrl(header.get(0));
 
-                if (url.equalsIgnoreCase("/login")|| url.equalsIgnoreCase("/")) {
+                if (url.equalsIgnoreCase("/login") || url.equalsIgnoreCase("/")) {
                     LoginRequest loginRequest = new LoginRequest(url, method, header.get(0), payload.toString());
 //                    produceLogin(loginRequest);
 //                    consumeLogin(writer, outputStream);
@@ -91,13 +92,13 @@ public class Main {
         producerProperties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerProperties.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG, String.valueOf(10 * 1024 * 1024L));
 
-        try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+        try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
             producer.send(new ProducerRecord<>("login-request-serv", json));
         }
 
     }
 
-    private static void consumeLogin(PrintWriter writer, OutputStream outputStream){
+    private static void consumeLogin(PrintWriter writer, OutputStream outputStream) {
         Gson gson = new Gson();
         Properties consumerProperties = new Properties();
         consumerProperties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -125,7 +126,6 @@ public class Main {
             break;
         }
     }
-
 
 
 }

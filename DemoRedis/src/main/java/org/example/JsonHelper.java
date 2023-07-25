@@ -12,7 +12,7 @@ public class JsonHelper {
         defaultObjectMapper.registerModule(new JavaTimeModule());
         defaultObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         defaultObjectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        return  defaultObjectMapper;
+        return defaultObjectMapper;
     }
 
 
@@ -139,7 +139,7 @@ public class JsonHelper {
                 "  \"payload\": null\n" +
                 "}";
         try {
-            JsonNode jn =  JsonHelper.parse(j);
+            JsonNode jn = JsonHelper.parse(j);
             System.out.println(JsonHelper.parse(jn.toString()).findValue("method").asText());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

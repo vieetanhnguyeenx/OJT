@@ -14,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DemoJpaApplication {
 
-	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(DemoJpaApplication.class, args);
-		UserRespository userRespository = context.getBean(UserRespository.class);
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(DemoJpaApplication.class, args);
+        UserRespository userRespository = context.getBean(UserRespository.class);
 
-		userRespository.findAll().forEach(System.out::println);
+        userRespository.findAll().forEach(System.out::println);
 //		User user = userRespository.save(new User());
 //		System.out.println(user.getId());
 //		user.setAgi(100);
@@ -27,6 +27,6 @@ public class DemoJpaApplication {
 //		List<User> user = userRespository.findAllByAtk(98);
 //		System.out.println(user);
 
-	}
+    }
 
 }

@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Server {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 //        while (true) {
 //            try {
 //                ServerSocket ss = new ServerSocket(8888);
@@ -23,7 +23,6 @@ public class Server {
 //            }catch (IOException e) {
 //            }
 //        }
-
 
 
     }

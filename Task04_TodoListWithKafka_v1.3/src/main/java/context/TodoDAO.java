@@ -11,6 +11,7 @@ import java.util.List;
 
 public class TodoDAO {
     private static Connection conn = DBContext.getConnection();
+
     public static List<Todo> getTodoList(int userId) {
         List<Todo> todoList = new ArrayList<>();
         String query = "SELECT ID, Title, Status, CreatedDate, UserID FROM task03_httpserver.task where UserID = ?;";
@@ -56,7 +57,7 @@ public class TodoDAO {
 
             if (status != null) {
                 ps = conn.prepareStatement(query2);
-                ps.setBoolean( 1 ,!status);
+                ps.setBoolean(1, !status);
                 ps.setInt(2, taskId);
                 ps.executeUpdate();
             }
@@ -89,7 +90,7 @@ public class TodoDAO {
 
             if (todo != null) {
                 ps = conn.prepareStatement(query2);
-                ps.setBoolean( 1 ,!todo.isStatus());
+                ps.setBoolean(1, !todo.isStatus());
                 ps.setInt(2, taskId);
                 ps.executeUpdate();
             }

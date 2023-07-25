@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-public class AddNewTaskController implements HttpBaseController, BaseAuthentication{
+public class AddNewTaskController implements HttpBaseController, BaseAuthentication {
     @Override
     public void processGet(PrintWriter writer, OutputStream outputStream, String header, User user) {
 

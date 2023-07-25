@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-public class DeleteItemController extends BaseAuthentication implements HttpBaseController{
+public class DeleteItemController extends BaseAuthentication implements HttpBaseController {
 
     @Override
     public void ProcessGet(PrintWriter writer, OutputStream outputStream, String header) {

@@ -73,7 +73,7 @@ public class Main {
                 String method = HTTPServerHelper.getMethod(header.get(0));
                 String url = HTTPServerHelper.getUrl(header.get(0));
 
-                if(url.equalsIgnoreCase("/login") || url.equalsIgnoreCase("/")) {
+                if (url.equalsIgnoreCase("/login") || url.equalsIgnoreCase("/")) {
 
 
                     try (var producer = new KafkaProducer<String, String>(propertiesProducer)) {
@@ -94,7 +94,6 @@ public class Main {
                 socket.close();
                 System.out.println("[Server_Log]: Closed");
             }
-
 
 
         } catch (IOException e) {

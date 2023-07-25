@@ -22,7 +22,7 @@ import redis.clients.jedis.JedisPool;
 import java.util.Map;
 import java.util.Properties;
 
-public class ChangeStatusProducer extends Thread{
+public class ChangeStatusProducer extends Thread {
     @Override
     public void run() {
         Properties producerProperties = new Properties();
@@ -52,7 +52,7 @@ public class ChangeStatusProducer extends Thread{
                     System.out.println(val);
                     Long t1 = System.currentTimeMillis();
                     if (val.getMethod().equalsIgnoreCase("post")) {
-                        Long t3  = System.currentTimeMillis();
+                        Long t3 = System.currentTimeMillis();
                         String token = HTTPServerHelper.getParameter(val.getPayload(), "token");
                         Long t7 = System.currentTimeMillis();
                         System.out.println(t7 - t3);
@@ -79,10 +79,10 @@ public class ChangeStatusProducer extends Thread{
                                 jedis.hset("token", "user" + u1.getId(), token);
                             }
                         }
-                        Long t4  = System.currentTimeMillis();
-                        Long t5  = System.currentTimeMillis();
+                        Long t4 = System.currentTimeMillis();
+                        Long t5 = System.currentTimeMillis();
                         if (isAuthenticated) {
-                            Long t10  = System.currentTimeMillis();
+                            Long t10 = System.currentTimeMillis();
                             Todo todo = TodoDAO.changStatusAndReturn(u1.getId(), Integer.parseInt(HTTPServerHelper.getParameter(val.getPayload(), "id")));
                             try {
                                 jedis.hset("user" + u1.getId(), String.valueOf(todo.getId()), JsonHelper.stringgify(JsonHelper.toJson(todo)));
@@ -90,9 +90,9 @@ public class ChangeStatusProducer extends Thread{
                                 e.printStackTrace();
                             }
 
-                            Long t11  = System.currentTimeMillis();
-                            System.out.println("Handle " + String.valueOf(t11 - t10) );
-                            Long t12  = System.currentTimeMillis();
+                            Long t11 = System.currentTimeMillis();
+                            System.out.println("Handle " + String.valueOf(t11 - t10));
+                            Long t12 = System.currentTimeMillis();
                             Response response = new Response(key, val.getUrl(), val.getMethod(), Response.SC_OK, null, null, null, token);
                             response.setTextData("Change Status Successful");
                             String json = gson.toJson(response);
@@ -102,8 +102,8 @@ public class ChangeStatusProducer extends Thread{
                             }
 
                             todo.setStatus(!todo.isStatus());
-                            Long t13  = System.currentTimeMillis();
-                            System.out.println("Handle " + String.valueOf(t13 - t12) );
+                            Long t13 = System.currentTimeMillis();
+                            System.out.println("Handle " + String.valueOf(t13 - t12));
                         } else {
                             Response response = new Response(key, val.getUrl(), val.getMethod(), Response.SC_OK, null, "accessDenied.html", null, null);
                             String json = gson.toJson(response);
@@ -113,7 +113,7 @@ public class ChangeStatusProducer extends Thread{
                                 producer.flush();
                             }
                         }
-                        Long t6  = System.currentTimeMillis();
+                        Long t6 = System.currentTimeMillis();
                         Long t2 = System.currentTimeMillis();
                         System.out.println("All" + String.valueOf(t2 - t1));
                         System.out.println("Authentication" + String.valueOf(t4 - t3));

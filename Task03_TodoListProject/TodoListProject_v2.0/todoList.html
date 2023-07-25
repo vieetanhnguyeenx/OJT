@@ -31,7 +31,7 @@
                 }
             });
         }
-        
+
         function deleteItem(id) {
             console.log("start");
             $.ajax({
@@ -150,7 +150,8 @@
             <h1>To Do List</h1>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-outline-danger"><a style="text-decoration: none" href="http://localhost:8888/logout">Logout</a></button>
+            <button class="btn btn-outline-danger"><a style="text-decoration: none" href="http://localhost:8888/logout">Logout</a>
+            </button>
         </div>
     </div>
 
@@ -165,7 +166,8 @@
     </div>
 
     <!-- Update Modal -->
-    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -175,7 +177,8 @@
                 <div class="modal-body">
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping">Title</span>
-                        <input type="text" class="form-control" placeholder="Tile" id="updateTitle" aria-label="Username" aria-describedby="addon-wrapping">
+                        <input type="text" class="form-control" placeholder="Tile" id="updateTitle"
+                               aria-label="Username" aria-describedby="addon-wrapping">
                         <input type="text" class="form-control" id="updateId" hidden="hidden">
                     </div>
                 </div>
@@ -188,7 +191,8 @@
     </div>
 
     <!-- Add Modal -->
-    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -198,14 +202,16 @@
                 <div class="modal-body">
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping">Title</span>
-                        <input type="text" class="form-control" placeholder="Tile" id="addTitle" aria-label="Username" aria-describedby="addon-wrapping">
+                        <input type="text" class="form-control" placeholder="Tile" id="addTitle" aria-label="Username"
+                               aria-describedby="addon-wrapping">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="executeAdd()">Add</button>
                 </div>
-            </div>json
+            </div>
+            json
         </div>
     </div>
 </div>

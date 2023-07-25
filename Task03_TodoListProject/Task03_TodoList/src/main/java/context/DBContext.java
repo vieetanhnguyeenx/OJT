@@ -1,8 +1,10 @@
 package context;
+
 import java.sql.*;
+
 public class DBContext {
     public Connection getConnection() throws Exception {
-        String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + intance + ";databaseName=" + dbName + ";encrypt=false" ;
+        String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + intance + ";databaseName=" + dbName + ";encrypt=false";
         if (intance == null || intance.trim().isEmpty()) {
             url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName + ";encrypt=false";
         }

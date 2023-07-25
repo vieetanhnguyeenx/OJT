@@ -18,7 +18,7 @@ public class JsonHelper {
         defaultObjectMapper.registerModule(new JavaTimeModule());
         defaultObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         defaultObjectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        return  defaultObjectMapper;
+        return defaultObjectMapper;
     }
 
 

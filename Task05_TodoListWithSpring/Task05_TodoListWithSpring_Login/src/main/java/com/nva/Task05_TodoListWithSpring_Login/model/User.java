@@ -2,6 +2,7 @@ package com.nva.Task05_TodoListWithSpring_Login.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 @Entity
 @Table(name = "user")
 @Data
@@ -13,7 +14,7 @@ public class User {
 
     @Column(name = "username")
     private String username;
-    @Column(name = "password",columnDefinition = "varchar(255)")
+    @Column(name = "password", columnDefinition = "varchar(255)")
     private String password;
 
     public User() {

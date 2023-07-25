@@ -9,7 +9,7 @@ public class ConfigurationManager {
     }
 
     public static ConfigurationManager getMyConfigManager() {
-        if(myConfigManager == null) {
+        if (myConfigManager == null) {
             myConfigManager = new ConfigurationManager();
         }
         return myConfigManager;

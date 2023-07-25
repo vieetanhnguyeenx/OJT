@@ -21,7 +21,7 @@ public class Client {
 
             Scanner sc = new Scanner(System.in);
             System.out.print("Enter your name: ");
-            String name =  sc.nextLine();
+            String name = sc.nextLine();
             bufferedWriter.write(name);
             bufferedWriter.newLine();
             bufferedWriter.flush();
@@ -32,9 +32,9 @@ public class Client {
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
 
-                System.out.println("System: " +bufferedReader.readLine());
+                System.out.println("System: " + bufferedReader.readLine());
 
-                if(mess.trim().equals("/end")) {
+                if (mess.trim().equals("/end")) {
                     break;
                 }
             }

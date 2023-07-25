@@ -11,7 +11,7 @@ import service.login.LoginData;
 import java.util.Arrays;
 import java.util.Properties;
 
-public class TodoListConsumer extends Thread{
+public class TodoListConsumer extends Thread {
     @Override
     public void run() {
         Gson gson = new Gson();

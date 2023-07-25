@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class HttpConnectionWorkerThread extends Thread{
+public class HttpConnectionWorkerThread extends Thread {
     private int socketId;
     private Socket socket;
 
@@ -63,7 +63,7 @@ public class HttpConnectionWorkerThread extends Thread{
 
             ControllerFactory controllerFactor = new ControllerFactory();
             BaseController baseController = controllerFactor.getController(url);
-            baseController.sendMessage(socketId, method, url,  header.get(0), payload.toString());
+            baseController.sendMessage(socketId, method, url, header.get(0), payload.toString());
 
             System.out.println("[Server_log]: Waiting for consume" + socketId);
             while (true) {

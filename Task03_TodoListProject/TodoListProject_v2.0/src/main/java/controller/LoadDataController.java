@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class LoadDataController extends BaseAuthentication implements HttpBaseController{
+public class LoadDataController extends BaseAuthentication implements HttpBaseController {
 
 
     @Override
@@ -63,10 +63,10 @@ public class LoadDataController extends BaseAuthentication implements HttpBaseCo
                         "                            <p class=\"mb-0\">" + t.getTitle() + "</p>\n" +
                         "                        </div>\n" +
                         "                        <div class=\"col-md-1\">\n" +
-                        "                            <button onclick=\"update("+t.getId()+")\" class=\"btn btn-outline-primary py-0\">Edit</button>\n" +
+                        "                            <button onclick=\"update(" + t.getId() + ")\" class=\"btn btn-outline-primary py-0\">Edit</button>\n" +
                         "                        </div>\n" +
                         "                        <div class=\"col-md-2\">\n" +
-                        "                            <button onclick=\"deleteItem("+ t.getId() +")\" class=\"btn btn-outline-danger py-0\">Delete</button>\n" +
+                        "                            <button onclick=\"deleteItem(" + t.getId() + ")\" class=\"btn btn-outline-danger py-0\">Delete</button>\n" +
                         "                        </div>\n" +
                         "                    </div>\n" +
                         "                </li>\n");
@@ -80,10 +80,10 @@ public class LoadDataController extends BaseAuthentication implements HttpBaseCo
                         "                            <p class=\"mb-0\">" + t.getTitle() + "</p>\n" +
                         "                        </div>\n" +
                         "                        <div class=\"col-md-1\">\n" +
-                        "                            <button onclick=\"update("+t.getId()+")\" class=\"btn btn-outline-primary py-0\">Edit</button>\n" +
+                        "                            <button onclick=\"update(" + t.getId() + ")\" class=\"btn btn-outline-primary py-0\">Edit</button>\n" +
                         "                        </div>\n" +
                         "                        <div class=\"col-md-2\">\n" +
-                        "                            <button onclick=\"deleteItem("+ t.getId() +")\" class=\"btn btn-outline-danger py-0\">Delete</button>\n" +
+                        "                            <button onclick=\"deleteItem(" + t.getId() + ")\" class=\"btn btn-outline-danger py-0\">Delete</button>\n" +
                         "                        </div>\n" +
                         "                    </div>\n" +
                         "                </li>\n");

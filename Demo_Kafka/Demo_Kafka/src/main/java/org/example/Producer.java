@@ -31,13 +31,13 @@ public class Producer {
 //
 //        }
 
-                try (var producer = new KafkaProducer<String, String>(props)) {
-                final var message = new ProducerRecord<>(
-                        "new-kafka-topic-01",     //topic name
-                        "key-" + "101",            // key
-                        "hello mtfk"        // value
-                );
-                producer.send(message);
+        try (var producer = new KafkaProducer<String, String>(props)) {
+            final var message = new ProducerRecord<>(
+                    "new-kafka-topic-01",     //topic name
+                    "key-" + "101",            // key
+                    "hello mtfk"        // value
+            );
+            producer.send(message);
         }
     }
 }

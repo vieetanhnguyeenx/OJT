@@ -57,7 +57,7 @@ public class TodoDAO {
 
             if (status != null) {
                 ps = conn.prepareStatement(query2);
-                ps.setBoolean( 1 ,!status);
+                ps.setBoolean(1, !status);
                 ps.setInt(2, taskId);
                 ps.executeUpdate();
             }

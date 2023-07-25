@@ -22,7 +22,7 @@ public class LoginController implements BaseController {
         producerProperties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerProperties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
-        try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+        try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
             producer.send(new ProducerRecord<>("login-request-serv", json));
         }
     }

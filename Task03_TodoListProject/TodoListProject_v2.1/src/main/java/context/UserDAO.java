@@ -12,6 +12,7 @@ import java.util.Base64;
 
 public class UserDAO {
     private static final Base64.Decoder decoder = Base64.getDecoder();
+
     public static User getUser(String username, String password) {
         String query = "SELECT ID, UserName from task03_httpserver.user where UserName = ? and Password = ?";
         try {

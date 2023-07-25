@@ -50,7 +50,7 @@ public class Main {
                 // Get method, url, param string
                 String method = HTTPServerHelper.getMethod(header.get(0));
                 String url = HTTPServerHelper.getUrl(header.get(0));
-                if (url.equalsIgnoreCase("/login")|| url.equalsIgnoreCase("/")) {
+                if (url.equalsIgnoreCase("/login") || url.equalsIgnoreCase("/")) {
                     if (method.equalsIgnoreCase("get")) {
                         KafkaHelper.produceLoginMessage(url, method, header.get(0), payload.toString());
                     } else {

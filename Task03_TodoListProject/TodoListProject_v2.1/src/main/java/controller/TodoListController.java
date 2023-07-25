@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-public class TodoListController implements HttpBaseController, BaseAuthentication{
+public class TodoListController implements HttpBaseController, BaseAuthentication {
 
 
     @Override

@@ -30,7 +30,7 @@ public class DeleteTaskService {
         String tokenDecoded = null;
         try {
             tokenDecoded = new String(TokenHelper.decoder.decode(token));
-        }catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
         try {

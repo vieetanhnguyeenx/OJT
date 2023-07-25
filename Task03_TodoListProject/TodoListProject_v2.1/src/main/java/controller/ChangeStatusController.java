@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
-public class ChangeStatusController implements HttpBaseController, BaseAuthentication{
+public class ChangeStatusController implements HttpBaseController, BaseAuthentication {
     @Override
     public void processGet(PrintWriter writer, OutputStream outputStream, String header, User user) {
 

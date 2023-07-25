@@ -11,7 +11,7 @@ import service.load.data.LoadDataData;
 import java.util.Arrays;
 import java.util.Properties;
 
-public class ChangeStatusConsumer extends Thread{
+public class ChangeStatusConsumer extends Thread {
     @Override
     public void run() {
         Gson gson = new Gson();

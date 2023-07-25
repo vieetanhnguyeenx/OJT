@@ -5,7 +5,7 @@ import helper.HTTPServerHelper;
 import java.io.*;
 import java.net.Socket;
 
-public class HttpConnectionWorkerThread extends Thread{
+public class HttpConnectionWorkerThread extends Thread {
     private int socketId;
     private Socket socket;
 

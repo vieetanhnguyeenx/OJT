@@ -19,7 +19,7 @@ import service.edit.task.EditTaskData;
 import java.util.Map;
 import java.util.Properties;
 
-public class DeleteTaskProducer extends Thread{
+public class DeleteTaskProducer extends Thread {
     @Override
     public void run() {
         Properties producerProperties = new Properties();

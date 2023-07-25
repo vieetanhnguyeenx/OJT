@@ -16,8 +16,8 @@ import java.util.Arrays;
 import java.util.Properties;
 
 public class KafkaHelper {
-    public static void produceLoginMessage(String url, String method, String header, String payload){
-        String messageValue = "{\"url\":\""+ url +"\",\"method\":\""+ header +"\",\"requestHeader\":\""+ payload +"\",\"payload\":"+ payload +" }";
+    public static void produceLoginMessage(String url, String method, String header, String payload) {
+        String messageValue = "{\"url\":\"" + url + "\",\"method\":\"" + header + "\",\"requestHeader\":\"" + payload + "\",\"payload\":" + payload + " }";
         Properties loginProducer = new Properties();
         loginProducer.setProperty(ProducerConfig.CLIENT_ID_CONFIG, "login-producer");
         loginProducer.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");

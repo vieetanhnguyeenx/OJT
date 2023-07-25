@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
         Gson gson = new Gson();
-        try(Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = jedisPool.getResource()) {
 //            Student s = new Student(1, "nva", 12, LocalDate.now());
 //            Student s1 = new Student(2, "nva2", 18, LocalDate.now());
 //            Student s2 = new Student(3, "nva3", 132, LocalDate.now());
@@ -33,7 +33,7 @@ public class Main {
 //            }
             System.out.println(jedis.hlen("student"));
             Map<String, String> stringStudentMap = jedis.hgetAll("student");
-            for (Map.Entry<String, String> entry: stringStudentMap.entrySet()) {
+            for (Map.Entry<String, String> entry : stringStudentMap.entrySet()) {
                 System.out.println(entry.getKey());
                 System.out.println(entry.getValue());
 //                Student s = JsonHelper.fromJson(JsonHelper.parse(entry.getValue()), Student.class);

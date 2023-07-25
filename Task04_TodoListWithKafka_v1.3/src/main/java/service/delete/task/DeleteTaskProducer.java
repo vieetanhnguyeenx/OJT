@@ -20,7 +20,7 @@ import redis.clients.jedis.JedisPool;
 import java.util.Map;
 import java.util.Properties;
 
-public class DeleteTaskProducer extends Thread{
+public class DeleteTaskProducer extends Thread {
     @Override
     public void run() {
         Properties producerProperties = new Properties();
@@ -48,7 +48,7 @@ public class DeleteTaskProducer extends Thread{
                     System.out.println(val);
 
                     if (val.getMethod().equalsIgnoreCase("post")) {
-                        Long t3  = System.currentTimeMillis();
+                        Long t3 = System.currentTimeMillis();
                         String token = HTTPServerHelper.getParameter(val.getPayload(), "token");
                         Long t7 = System.currentTimeMillis();
                         System.out.println(t7 - t3);
@@ -90,7 +90,7 @@ public class DeleteTaskProducer extends Thread{
                             }
                             TodoDAO.deleteTask(u1.getId(), taskId);
                             Long t14 = System.currentTimeMillis();
-                            System.out.println( t14 - t13);
+                            System.out.println(t14 - t13);
                         } else {
                             Response response = new Response(key, val.getUrl(), val.getMethod(), Response.SC_OK, null, "accessDenied.html", null, null);
                             String json = gson.toJson(response);

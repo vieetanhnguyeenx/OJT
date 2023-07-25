@@ -5,5 +5,5 @@ import com.example.Task05_TodoListWithSpringBoot.model.Response;
 
 public interface IService {
     public Response sendMessage(Request request, String key);
-    
+
 }

@@ -10,9 +10,10 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 @Service
-public class DeleteService implements IService{
+public class DeleteService implements IService {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
+
     @Override
     public Response sendMessage(Request request, String key) {
         JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
@@ -21,7 +22,7 @@ public class DeleteService implements IService{
         sendMessageToTopic(json, "delete-task-consumer");
         while (true) {
             if (jedis.hexists("mainCache", request.getId())) {
-                Response response  = TokenHelper.gson.fromJson(jedis.hget("mainCache", request.getId()), Response.class);
+                Response response = TokenHelper.gson.fromJson(jedis.hget("mainCache", request.getId()), Response.class);
                 System.out.println(response);
                 System.out.println("Delete" + jedis.hdel("mainCache", request.getId()));
                 return response;

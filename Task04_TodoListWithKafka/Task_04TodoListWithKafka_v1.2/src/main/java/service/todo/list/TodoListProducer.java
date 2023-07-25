@@ -20,7 +20,7 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.Properties;
 
-public class TodoListProducer extends Thread{
+public class TodoListProducer extends Thread {
     @Override
     public void run() {
         Properties producerProperties = new Properties();
@@ -30,7 +30,7 @@ public class TodoListProducer extends Thread{
         producerProperties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerProperties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         while (true) {
-            if(TodoData.todoData.size() > 0) {
+            if (TodoData.todoData.size() > 0) {
                 for (Map.Entry<Integer, Request> data : TodoData.todoData.entrySet()) {
                     Integer key = data.getKey();
                     Request val = data.getValue();
@@ -43,11 +43,11 @@ public class TodoListProducer extends Thread{
                         } else {
                             User u = null;
                             try {
-                               u = UserDAO.authenticationToken(token);
+                                u = UserDAO.authenticationToken(token);
                             } catch (JsonProcessingException e) {
                                 e.printStackTrace();
                             }
-                            if(u != null) {
+                            if (u != null) {
                                 System.out.println("not null");
                                 isAuthenticated = true;
                                 TokenUserCache.tokenCache.put(u.getId(), token);
@@ -58,7 +58,7 @@ public class TodoListProducer extends Thread{
                             Response response = new Response(key, val.getUrl(), val.getMethod(), Response.SC_OK, null, "todoList.html", null, token);
                             String json = gson.toJson(response);
                             System.out.println(json);
-                            try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+                            try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
                                 producer.send(new ProducerRecord<>("login-response-serv", json));
                                 producer.flush();
                             }
@@ -66,7 +66,7 @@ public class TodoListProducer extends Thread{
                             Response response = new Response(key, val.getUrl(), val.getMethod(), Response.SC_OK, null, "accessDenied.html", null, null);
                             String json = gson.toJson(response);
                             System.out.println(json);
-                            try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+                            try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
                                 producer.send(new ProducerRecord<>("login-response-serv", json));
                                 producer.flush();
                             }

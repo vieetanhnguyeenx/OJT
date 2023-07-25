@@ -9,7 +9,7 @@ public class HttpFactory {
         if (url.toLowerCase().equals("/login") || url.toLowerCase().equals("/")) {
             return new LoginController();
         }
-        if(url.toLowerCase().equals("/todolist")) {
+        if (url.toLowerCase().equals("/todolist")) {
             return new TodoListController();
         }
         if (url.toLowerCase().equals("/loaddata")) {
@@ -18,7 +18,7 @@ public class HttpFactory {
         if (url.toLowerCase().equals("/changestatus")) {
             return new ChangeTodoStatusController();
         }
-        if (url.toLowerCase().equals("/deleteitem")){
+        if (url.toLowerCase().equals("/deleteitem")) {
             return new DeleteItemController();
         }
         if (url.toLowerCase().equals("/edittitle")) {
@@ -26,7 +26,8 @@ public class HttpFactory {
         }
         if (url.toLowerCase().equals("/addtodo")) {
             return new AddTodoController();
-        } if (url.toLowerCase().equals("/logout")) {
+        }
+        if (url.toLowerCase().equals("/logout")) {
             return new LogoutController();
         }
         return new NotFoundController();

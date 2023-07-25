@@ -10,7 +10,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import java.util.Arrays;
 import java.util.Properties;
 
-public class LoginServiceConsumer extends Thread{
+public class LoginServiceConsumer extends Thread {
     @Override
     public void run() {
         Gson gson = new Gson();

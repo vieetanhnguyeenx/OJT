@@ -12,5 +12,4 @@ public class Redis {
     public static Jedis jedis = jedisPool.getResource();
 
 
-
 }

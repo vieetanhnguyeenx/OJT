@@ -18,6 +18,7 @@ public class AppConfig {
         sqlServerConnector.setUrl("doibuon:8081:sqlServer");
         return sqlServerConnector;
     }
+
     @Bean("mongoDBConnector")
     public MongoDBConnector mongoDBConnector() {
         MongoDBConnector mongoDBConnector = new MongoDBConnector();

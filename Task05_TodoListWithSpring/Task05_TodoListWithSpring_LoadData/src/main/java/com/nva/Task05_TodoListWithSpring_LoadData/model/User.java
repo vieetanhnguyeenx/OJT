@@ -18,7 +18,7 @@ public class User {
 
     @Column(name = "username")
     private String username;
-    @Column(name = "password",columnDefinition = "varchar(255)")
+    @Column(name = "password", columnDefinition = "varchar(255)")
     private String password;
 
     public User() {

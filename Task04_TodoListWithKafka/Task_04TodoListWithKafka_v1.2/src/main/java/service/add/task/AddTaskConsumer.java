@@ -11,7 +11,7 @@ import service.edit.task.EditTaskData;
 import java.util.Arrays;
 import java.util.Properties;
 
-public class AddTaskConsumer extends Thread{
+public class AddTaskConsumer extends Thread {
     @Override
     public void run() {
         Gson gson = new Gson();

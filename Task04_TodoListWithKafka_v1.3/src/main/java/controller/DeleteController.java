@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class DeleteController implements BaseController{
+public class DeleteController implements BaseController {
     @Override
     public void sendMessage(int socketId, String method, String url, String header, String payload) {
         Gson gson = new Gson();
@@ -21,7 +21,7 @@ public class DeleteController implements BaseController{
         producerProperties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerProperties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
-        try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+        try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
             producer.send(new ProducerRecord<>("delete-task-serv", json));
         }
     }

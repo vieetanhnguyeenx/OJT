@@ -30,7 +30,7 @@ public class LoginServiceProducer extends Thread {
         producerProperties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerProperties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         while (true) {
-            if(LoginData.data.size() > 0) {
+            if (LoginData.data.size() > 0) {
                 for (Map.Entry<Integer, Request> data : LoginData.data.entrySet()) {
                     Integer key = data.getKey();
                     Request val = data.getValue();
@@ -66,15 +66,15 @@ public class LoginServiceProducer extends Thread {
                             }
 
                             System.out.println(jsonResponse);
-                            try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+                            try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
                                 producer.send(new ProducerRecord<>("login-response-serv", jsonResponse));
                                 producer.flush();
                             }
                         } else {
-                            Response response = new Response(key, val.getUrl(), val.getMethod() ,Response.SC_FOUND, "http://localhost:8888/login", null, null, null);
+                            Response response = new Response(key, val.getUrl(), val.getMethod(), Response.SC_FOUND, "http://localhost:8888/login", null, null, null);
                             String json = gson.toJson(response);
                             System.out.println(json);
-                            try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+                            try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
                                 producer.send(new ProducerRecord<>("login-response-serv", json));
                                 producer.flush();
                             }

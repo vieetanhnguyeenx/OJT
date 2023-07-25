@@ -60,7 +60,7 @@ public class Main {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
 
-                final String  CRLF = "\n\r";
+                final String CRLF = "\n\r";
                 String respone =
                         "HTTP/1.1 200 OK +" + CRLF +
                                 "Content-Length: " + html.getBytes().length + CRLF +
@@ -78,7 +78,7 @@ public class Main {
 
                 StringBuilder payload = new StringBuilder();
                 while (bufferedReader.ready()) {
-                    payload.append((char)bufferedReader.read());
+                    payload.append((char) bufferedReader.read());
                 }
 
 
@@ -132,7 +132,7 @@ public class Main {
         return true;
     }
 
-    public static boolean Authentication (String userName, String password) {
+    public static boolean Authentication(String userName, String password) {
         if (!userName.equals("anhnv")) {
             return false;
         }

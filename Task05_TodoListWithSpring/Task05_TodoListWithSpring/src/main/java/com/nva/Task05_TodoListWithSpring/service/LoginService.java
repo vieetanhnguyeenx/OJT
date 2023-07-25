@@ -27,7 +27,7 @@ public class LoginService implements IService {
         sendMessageToTopic(json, "login-request-serv");
         while (true) {
             if (jedis.hexists("mainCache", request.getId())) {
-                Response response  = TokenHelper.gson.fromJson(jedis.hget("mainCache", request.getId()), Response.class);
+                Response response = TokenHelper.gson.fromJson(jedis.hget("mainCache", request.getId()), Response.class);
                 System.out.println(response);
                 System.out.println("Delete" + jedis.hdel("mainCache", request.getId()));
                 return response;

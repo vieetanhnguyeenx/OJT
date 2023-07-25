@@ -29,7 +29,7 @@ public class ChangeStatusController {
         map.put("id", id);
         Response response = changeStatusService.sendMessage(
                 new Request(localDateTime.toString(), "/changeStatus",
-                       map, token),
+                        map, token),
                 localDateTime.toString()
         );
 

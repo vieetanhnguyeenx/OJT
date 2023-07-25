@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class ChangeStatusProvider extends Thread{
+public class ChangeStatusProvider extends Thread {
     @Override
     public void run() {
         Properties producerProperties = new Properties();

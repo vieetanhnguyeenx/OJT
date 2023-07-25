@@ -18,5 +18,6 @@ public abstract class BaseAuthentication {
     }
 
     public abstract void ProcessGet(PrintWriter writer, OutputStream outputStream, String header);
+
     public abstract void ProcessPost(PrintWriter writer, OutputStream outputStream, String payload);
 }

@@ -20,51 +20,51 @@ import java.util.Map;
 @SpringBootApplication
 public class Task05TodoListWithSpringTodoApplication {
 
-	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(Task05TodoListWithSpringTodoApplication.class, args);
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(Task05TodoListWithSpringTodoApplication.class, args);
 
-		JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
-		Jedis jedis = jedisPool.getResource();
-		AddTaskService addTaskService = context.getBean(AddTaskService.class);
-		TodoRepository todoRepository = context.getBean(TodoRepository.class);
+        JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
+        Jedis jedis = jedisPool.getResource();
+        AddTaskService addTaskService = context.getBean(AddTaskService.class);
+        TodoRepository todoRepository = context.getBean(TodoRepository.class);
 
-		Map<String, String> dataMap;
-		while (true) {
-			if (jedis.hlen("addTaskConsumer") > 0) {
-				dataMap = jedis.hgetAll("addTaskConsumer");
-				for(Map.Entry<String, String> data: dataMap.entrySet()) {
-					String key = data.getKey();
-					Request request = TokenHelper.gson.fromJson(data.getValue(), Request.class);
-					User user = addTaskService.authentication(request.getToken());
-					if (user != null) {
-						String s = request.getParameter().get("title");
-						if (s != null) {
-							Todo todo = new Todo(s, false, user.getId());
-							todoRepository.save(todo);
-						}
-						Response response = new Response(key, request.getUrl(), HttpStatus.OK,
-								null, null, null, "Add Success");
-						String jsonResponse = TokenHelper.gson.toJson(response);
-						addTaskService.sendMessageToTopic(jsonResponse, "login-response-serv");
+        Map<String, String> dataMap;
+        while (true) {
+            if (jedis.hlen("addTaskConsumer") > 0) {
+                dataMap = jedis.hgetAll("addTaskConsumer");
+                for (Map.Entry<String, String> data : dataMap.entrySet()) {
+                    String key = data.getKey();
+                    Request request = TokenHelper.gson.fromJson(data.getValue(), Request.class);
+                    User user = addTaskService.authentication(request.getToken());
+                    if (user != null) {
+                        String s = request.getParameter().get("title");
+                        if (s != null) {
+                            Todo todo = new Todo(s, false, user.getId());
+                            todoRepository.save(todo);
+                        }
+                        Response response = new Response(key, request.getUrl(), HttpStatus.OK,
+                                null, null, null, "Add Success");
+                        String jsonResponse = TokenHelper.gson.toJson(response);
+                        addTaskService.sendMessageToTopic(jsonResponse, "login-response-serv");
 
-						List<Todo> todoList = todoRepository.findByUserId(user.getId());
-						String jsonData = TokenHelper.gson.toJson(todoList);
-						jedis.hset("loadDataCache", "user" + user.getId(), jsonData);
-					} else {
-						Response response = new Response(key, request.getUrl(), HttpStatus.FORBIDDEN,
-								null,
-								null, null, "Add Fail");
+                        List<Todo> todoList = todoRepository.findByUserId(user.getId());
+                        String jsonData = TokenHelper.gson.toJson(todoList);
+                        jedis.hset("loadDataCache", "user" + user.getId(), jsonData);
+                    } else {
+                        Response response = new Response(key, request.getUrl(), HttpStatus.FORBIDDEN,
+                                null,
+                                null, null, "Add Fail");
 
-						String jsonResponse = TokenHelper.gson.toJson(response);
-						addTaskService.sendMessageToTopic(jsonResponse, "login-response-serv");
-					}
+                        String jsonResponse = TokenHelper.gson.toJson(response);
+                        addTaskService.sendMessageToTopic(jsonResponse, "login-response-serv");
+                    }
 
-					jedis.hdel("addTaskConsumer", key);
-					dataMap.remove(key);
-				}
-			}
-		}
+                    jedis.hdel("addTaskConsumer", key);
+                    dataMap.remove(key);
+                }
+            }
+        }
 
-	}
+    }
 
 }

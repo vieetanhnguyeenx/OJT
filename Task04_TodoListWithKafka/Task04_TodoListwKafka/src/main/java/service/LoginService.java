@@ -41,7 +41,7 @@ public class LoginService {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {
                 String message = record.value();
-                System.out.println(message +LocalDateTime.now());
+                System.out.println(message + LocalDateTime.now());
                 try {
                     System.out.println(JsonHelper.parse(message.toString()).findValue("url").asText());
                 } catch (JsonProcessingException e) {
@@ -51,6 +51,7 @@ public class LoginService {
         }
 
     }
+
     private static void doGet(Properties properties, String topic, String record) {
         try {
             String htmlRespone = HTTPServerHelper.getHtml("login.html");

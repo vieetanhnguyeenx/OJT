@@ -14,7 +14,7 @@ public class Main {
         try {
             KafkaListenerThread kafkaListenerThread = new KafkaListenerThread();
             kafkaListenerThread.start();
-            ServerListenerThread serverListenerThread = new ServerListenerThread(8888,"localhost");
+            ServerListenerThread serverListenerThread = new ServerListenerThread(8888, "localhost");
             serverListenerThread.start();
         } catch (IOException e) {
             e.printStackTrace();

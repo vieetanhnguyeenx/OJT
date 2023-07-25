@@ -42,7 +42,7 @@ public class LoginServiceProducer extends Thread {
         JedisPool jedisPool = new JedisPool("127.0.0.1", 6379);
         Jedis jedis = jedisPool.getResource();
         while (true) {
-            if(LoginData.data.size() > 0) {
+            if (LoginData.data.size() > 0) {
                 for (Map.Entry<Integer, Request> data : LoginData.data.entrySet()) {
                     Integer key = data.getKey();
                     Request val = data.getValue();
@@ -79,7 +79,7 @@ public class LoginServiceProducer extends Thread {
                                 e.printStackTrace();
                             }
                             System.out.println(jsonResponse);
-                            try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+                            try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
                                 producer.send(new ProducerRecord<>("login-response-serv", jsonResponse));
                                 producer.flush();
                             }
@@ -88,7 +88,7 @@ public class LoginServiceProducer extends Thread {
                             if (cacheSize == 0) {
                                 todoList = TodoDAO.getTodoList(user.getId());
                                 if (todoList.size() > 0) {
-                                    for (Todo todo: todoList) {
+                                    for (Todo todo : todoList) {
                                         try {
                                             jedis.hset("user" + user.getId(), String.valueOf(todo.getId()), JsonHelper.stringgify(JsonHelper.toJson(todo)));
                                         } catch (JsonProcessingException e) {
@@ -98,7 +98,7 @@ public class LoginServiceProducer extends Thread {
                                 }
                             } else {
                                 Map<String, String> cacheList = jedis.hgetAll("user" + user.getId());
-                                for (Map.Entry<String, String> entry: cacheList.entrySet()) {
+                                for (Map.Entry<String, String> entry : cacheList.entrySet()) {
                                     try {
                                         todoList.add(JsonHelper.fromJson(JsonHelper.parse(entry.getValue()), Todo.class));
                                     } catch (JsonProcessingException e) {
@@ -107,10 +107,10 @@ public class LoginServiceProducer extends Thread {
                                 }
                             }
                         } else {
-                            Response response = new Response(key, val.getUrl(), val.getMethod() ,Response.SC_FOUND, "http://localhost:8888/login", null, null, null);
+                            Response response = new Response(key, val.getUrl(), val.getMethod(), Response.SC_FOUND, "http://localhost:8888/login", null, null, null);
                             String json = gson.toJson(response);
                             System.out.println(json);
-                            try(KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)){
+                            try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(producerProperties)) {
                                 producer.send(new ProducerRecord<>("login-response-serv", json));
                                 producer.flush();
                             }

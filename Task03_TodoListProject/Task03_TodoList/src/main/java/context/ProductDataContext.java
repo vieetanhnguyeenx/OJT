@@ -37,7 +37,7 @@ public class ProductDataContext {
 
     public static void main(String[] args) {
         List<Product> productList = new ProductDataContext().getAllProduct();
-        for (Product p: productList) {
+        for (Product p : productList) {
             System.out.println(p);
         }
     }

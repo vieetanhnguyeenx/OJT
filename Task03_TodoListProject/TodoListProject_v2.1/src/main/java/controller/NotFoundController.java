@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-public class NotFoundController implements HttpBaseController{
+public class NotFoundController implements HttpBaseController {
     @Override
     public void doGet(PrintWriter writer, OutputStream outputStream, String header) {
         try {

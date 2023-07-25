@@ -4,7 +4,7 @@ public class Product {
     private int id;
     private String name;
     private boolean type;
-    private  String os;
+    private String os;
 
     public Product() {
     }

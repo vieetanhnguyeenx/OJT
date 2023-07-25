@@ -14,7 +14,7 @@ public class UserDAO {
                     "where Username = ? and Password = ?";
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1,username);
+            ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

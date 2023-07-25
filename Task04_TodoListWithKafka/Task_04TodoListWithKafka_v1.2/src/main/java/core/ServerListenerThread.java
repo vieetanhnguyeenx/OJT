@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerListenerThread extends Thread{
+public class ServerListenerThread extends Thread {
     private static int socketId = 0;
     private int port;
     private String webroot;

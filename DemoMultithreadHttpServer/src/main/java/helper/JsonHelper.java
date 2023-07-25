@@ -12,7 +12,7 @@ public class JsonHelper {
         defaultObjectMapper.registerModule(new JavaTimeModule());
         defaultObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         defaultObjectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        return  defaultObjectMapper;
+        return defaultObjectMapper;
     }
 
 
@@ -134,7 +134,7 @@ public class JsonHelper {
 //        }
         String j = "{\"id\":7,\"title\":\"Cafe\",\"status\":true,\"createdDate\":\"2023-04-25\"}";
         try {
-            JsonNode jn =  JsonHelper.parse(j);
+            JsonNode jn = JsonHelper.parse(j);
             System.out.println(jn.findValue("title").asText());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

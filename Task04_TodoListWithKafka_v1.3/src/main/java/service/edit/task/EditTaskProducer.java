@@ -22,7 +22,7 @@ import redis.clients.jedis.JedisPool;
 import java.util.Map;
 import java.util.Properties;
 
-public class EditTaskProducer extends Thread{
+public class EditTaskProducer extends Thread {
     @Override
     public void run() {
         Properties producerProperties = new Properties();
@@ -48,7 +48,7 @@ public class EditTaskProducer extends Thread{
                     System.out.println(val);
                     Long t1 = System.currentTimeMillis();
                     if (val.getMethod().equalsIgnoreCase("post")) {
-                        Long t3  = System.currentTimeMillis();
+                        Long t3 = System.currentTimeMillis();
                         String token = HTTPServerHelper.getParameter(val.getPayload(), "token");
                         Long t7 = System.currentTimeMillis();
                         System.out.println(t7 - t3);

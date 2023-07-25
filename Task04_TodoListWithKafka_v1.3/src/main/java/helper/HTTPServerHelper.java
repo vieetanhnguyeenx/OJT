@@ -28,7 +28,7 @@ public class HTTPServerHelper {
     }
 
     public static String getParameter(String s, String paramName) {
-        if (s == null ) {
+        if (s == null) {
             return null;
         }
         if (!s.contains(paramName)) {
@@ -48,7 +48,7 @@ public class HTTPServerHelper {
     }
 
     public static String getUrl(String s) {
-        if (s == null ) {
+        if (s == null) {
             return null;
         }
         int start = s.indexOf(" /") + 1;
@@ -65,7 +65,7 @@ public class HTTPServerHelper {
     }
 
     public static String getMethod(String s) {
-        if (s == null ) {
+        if (s == null) {
             return null;
         }
         if (s.toLowerCase().contains("get")) {
@@ -121,6 +121,7 @@ public class HTTPServerHelper {
         writer.println();
         outputStream.write(jsonString.getBytes(StandardCharsets.UTF_8));
     }
+
     public static void main(String[] args) {
         String line = "GET /changeStatus?id=3 HTTP/1.1";
         System.out.println(HTTPServerHelper.getParameterString(line));

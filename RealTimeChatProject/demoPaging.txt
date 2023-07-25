@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<style>
+#myDIV {
+  height: 250px;
+  width: 250px;
+  overflow: auto;
+}
+
+#content {
+  height: 800px;
+  width: 2000px;
+  background-color: coral;
+}
+</style>
+
+<body>
+<h1>The Element Object</h1>
+<h2>The scrollTop and scrollLeft Properties</h2>
+
+<p>Scroll the content below to display the number of pixels it is scrolled.</p>
+
+<div id="myDIV" onscroll="myFunction2()">
+  <div id="content">Scroll me!</div>
+</div>
+
+<p id="demo"></p>
+
+<script>
+var page = 1;
+window.onload = function() {
+        var chatBox = document.getElementById('myDIV');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    };
+function myFunction2() {
+	setTimeout(myFunction, 8000);
+}
+
+function myFunction() {
+  const element = document.getElementById("myDIV");
+  let x = element.scrollLeft;
+  let y = element.scrollTop;
+  if(y == 0){
+  	var chatBox = document.getElementById('myDIV');
+    var oldMaxHeight = chatBox.scrollHeight;
+  	page++;
+    var newHeight = 800 * page;
+    document.getElementById('content').style.height = newHeight + 'px';
+    chatBox.scrollTop = chatBox.scrollHeight - oldMaxHeight;
+    
+  }
+  document.getElementById ("demo").innerHTML = "Horizontally: " + x.toFixed() + "<br>Vertically: " + 	y.toFixed() + "<br>Page: " + page;
+}
+</script>
+
+</body>
+</html>
